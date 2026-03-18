@@ -1,0 +1,19 @@
+server:
+  port: 9092
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: restaurante-api
+          uri: http://localhost:9091
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

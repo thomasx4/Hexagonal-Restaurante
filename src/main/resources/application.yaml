@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: hexagonal
+  datasource:
+    url: jdbc:mysql://switchback.proxy.rlwy.net:44202/railway
+    username: root
+    password: nBLLizpayUQIqoRyVmBBTHXDsBfufbHz
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+jackson:
+  serialization:
+    indent-output: true
+
+logging:
+  level:
+    org.springframework: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+
+server:
+  port: 9091
