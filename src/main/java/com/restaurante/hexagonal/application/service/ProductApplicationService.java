@@ -38,7 +38,7 @@ public class ProductApplicationService implements ProductInputPort {
 
     @Override
     public Product updateProduct(Product product) {
-        return productRepositoryPort.update(product);
+        return productRepositoryPort.save(product);
     }
 
 }
