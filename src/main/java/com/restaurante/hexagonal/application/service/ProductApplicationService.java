@@ -3,11 +3,13 @@ package com.restaurante.hexagonal.application.service;
 import com.restaurante.hexagonal.domain.model.Product;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.restaurante.hexagonal.application.ports.input.ProductInputPort;
 import com.restaurante.hexagonal.application.ports.output.ProductRepositoryPort;
 
+@Component
 @Service
 public class ProductApplicationService implements ProductInputPort {
 
