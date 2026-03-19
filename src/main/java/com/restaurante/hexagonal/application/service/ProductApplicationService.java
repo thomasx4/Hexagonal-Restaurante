@@ -44,7 +44,17 @@ public class ProductApplicationService implements ProductInputPort {
 
     @Override
     public Product updateProduct(Product product) {
-        return productRepositoryPort.save(product);
+        Product existing = getProductById(product.getId());
+
+        Product updated = existing.update(
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getCategoryId(),
+                product.getAvailable()
+        );
+
+        return productRepositoryPort.save(updated);
     }
 
 }

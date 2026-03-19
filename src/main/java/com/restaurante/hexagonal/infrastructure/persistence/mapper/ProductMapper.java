@@ -19,15 +19,13 @@ public class ProductMapper {
     }
 
     public static Product toModel(ProductEntity entity) {
-        if (entity == null) return null;
-
-        return Product.builder()
-                .id(entity.getId())
-                .name(entity.getName())
-                .description(entity.getDescription())
-                .price(entity.getPrice())
-                .categoryId(entity.getCategoryId())
-                .available(entity.getAvailable())
-                .build();
+    return new Product.Builder()
+            .id(entity.getId())
+            .name(entity.getName())
+            .description(entity.getDescription())
+            .price(entity.getPrice())
+            .categoryId(entity.getCategoryId())
+            .available(entity.getAvailable())
+            .build();
     }
 }
