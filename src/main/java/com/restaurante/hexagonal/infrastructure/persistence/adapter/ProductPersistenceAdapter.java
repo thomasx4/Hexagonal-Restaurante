@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Component;
+
+
 import com.restaurante.hexagonal.application.ports.output.ProductRepositoryPort;
 import com.restaurante.hexagonal.domain.model.Product;
 import com.restaurante.hexagonal.infrastructure.persistence.entity.ProductEntity;
 import com.restaurante.hexagonal.infrastructure.persistence.mapper.ProductMapper;
 import com.restaurante.hexagonal.infrastructure.persistence.repository.JpaProductRepository;
 
+@Component
 public class ProductPersistenceAdapter implements ProductRepositoryPort {
 
     private final JpaProductRepository repository;
