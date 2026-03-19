@@ -12,14 +12,14 @@ public class TableMapper {
                 .id(table.getId())
                 .number(table.getNumber())
                 .capacity(table.getCapacity())
-                .status(table.isStatus())
+                .status(table.getStatus())
                 .build();
     }
 
     public static Table toModel(TableEntity entity) {
         if (entity == null) return null;
 
-        return Table.builder()
+        return new Table.Builder()
                 .id(entity.getId())
                 .number(entity.getNumber())
                 .capacity(entity.getCapacity())
