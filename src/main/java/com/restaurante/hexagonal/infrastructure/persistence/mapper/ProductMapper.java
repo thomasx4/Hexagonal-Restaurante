@@ -6,24 +6,28 @@ import com.restaurante.hexagonal.infrastructure.persistence.entity.ProductEntity
 public class ProductMapper {
 
     public static ProductEntity toEntity(Product product) {
-        ProductEntity entity = new ProductEntity();
-        entity.setId(product.getId());
-        entity.setName(product.getName());
-        entity.setDescription(product.getDescription());
-        entity.setPrice(product.getPrice());
-        entity.setCategoryId(product.getCategoryId());
-        entity.setAvailable(product.getAvailable());
-        return entity;
+        if (product == null) return null;
+
+        return ProductEntity.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice())
+                .categoryId(product.getCategoryId())
+                .available(product.getAvailable())
+                .build();
     }
 
     public static Product toModel(ProductEntity entity) {
-        Product product = new Product();
-        product.setId(entity.getId());
-        product.setName(entity.getName());
-        product.setDescription(entity.getDescription());
-        product.setPrice(entity.getPrice());
-        product.setCategoryId(entity.getCategoryId());
-        product.setAvailable(entity.getAvailable());
-        return product;
+        if (entity == null) return null;
+
+        return Product.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .description(entity.getDescription())
+                .price(entity.getPrice())
+                .categoryId(entity.getCategoryId())
+                .available(entity.getAvailable())
+                .build();
     }
 }
