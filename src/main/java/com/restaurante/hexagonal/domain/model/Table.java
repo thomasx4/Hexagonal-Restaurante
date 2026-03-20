@@ -2,10 +2,11 @@ package com.restaurante.hexagonal.domain.model;
 
 import java.util.Objects;
 
+
 public class Table {
 
     private final Long id;
-    private final Long number;
+    private final Integer number;
     private final Integer capacity;
     private final Boolean status;
 
@@ -14,28 +15,32 @@ public class Table {
         this.number = builder.number;
         this.capacity = builder.capacity;
         this.status = builder.status;
-        this.validate();
+        validate();
+    }
+
+    private void validate() {
+
+        if (number == null) {
+            throw new IllegalArgumentException("Table number is required");
+        }
+
+        if (capacity == null || capacity <= 0) {
+            throw new IllegalArgumentException("Capacity must be greater than 0");
+        }
+
+        if (status == null) {
+            throw new IllegalArgumentException("Status is required");
+        }
     }
 
     // Getters
     public Long getId() { return id; }
-    public Long getNumber() { return number; }
+    public Integer getNumber() { return number; }
     public Integer getCapacity() { return capacity; }
     public Boolean getStatus() { return status; }
 
-    // Validaciones de negocio
-    private void validate() {
-        if (number == null || number <= 0) {
-            throw new IllegalArgumentException("Table number must be greater than 0");
-        }
-
-        if (capacity == null || capacity <= 0) {
-            throw new IllegalArgumentException("Table capacity must be greater than 0");
-        }
-    }
-
-    // Método de negocio (actualizar)
-    public Table update(Long number, Integer capacity, Boolean status) {
+    // Update
+    public Table update(Integer number, Integer capacity, Boolean status) {
         return new Builder()
                 .id(this.id)
                 .number(number)
@@ -44,35 +49,23 @@ public class Table {
                 .build();
     }
 
-    // Método de negocio (ocupar mesa)
-    public Table occupy() {
-        if (Boolean.TRUE.equals(this.status)) {
-            throw new RuntimeException("Table is already occupied");
-        }
+    // Builder
+    public static class Builder {
+        private Long id;
+        private Integer number;
+        private Integer capacity;
+        private Boolean status;
 
-        return new Builder()
-                .id(this.id)
-                .number(this.number)
-                .capacity(this.capacity)
-                .status(true)
-                .build();
+        public Builder id(Long id) { this.id = id; return this; }
+        public Builder number(Integer number) { this.number = number; return this; }
+        public Builder capacity(Integer capacity) { this.capacity = capacity; return this; }
+        public Builder status(Boolean status) { this.status = status; return this; }
+
+        public Table build() {
+            return new Table(this);
+        }
     }
 
-    // Método de negocio (liberar mesa)
-    public Table release() {
-        if (Boolean.FALSE.equals(this.status)) {
-            throw new RuntimeException("Table is already free");
-        }
-
-        return new Builder()
-                .id(this.id)
-                .number(this.number)
-                .capacity(this.capacity)
-                .status(false)
-                .build();
-    }
-
-    // equals & hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,44 +79,12 @@ public class Table {
         return Objects.hash(id);
     }
 
-    // Builder
-    public static class Builder {
-        private Long id;
-        private Long number;
-        private Integer capacity;
-        private Boolean status;
-
-        public Builder id(Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder number(Long number) {
-            this.number = number;
-            return this;
-        }
-
-        public Builder capacity(Integer capacity) {
-            this.capacity = capacity;
-            return this;
-        }
-
-        public Builder status(Boolean status) {
-            this.status = status;
-            return this;
-        }
-
-        public Table build() {
-            return new Table(this);
-        }
-    }
-
-    // Factory method
-    public static Table create(Long number, Integer capacity, Boolean status) {
+    public static Table create(Long id2, Integer number2, Integer capacity2, Boolean status2) {
         return new Builder()
-                .number(number)
-                .capacity(capacity)
-                .status(status)
+                .id(id2)
+                .number(number2)
+                .capacity(capacity2)
+                .status(status2)
                 .build();
-    }
+        }
 }
