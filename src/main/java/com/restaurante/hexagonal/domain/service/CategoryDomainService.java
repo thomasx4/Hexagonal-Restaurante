@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.restaurante.hexagonal.domain.model.Category;
 
-public class CategoryService {
+public class CategoryDomainService {
 
     public void validateUniqueName(String name, List<Category> existinCategories){
         boolean exists = existinCategories.stream().anyMatch(c -> c.getName().equalsIgnoreCase(name));
