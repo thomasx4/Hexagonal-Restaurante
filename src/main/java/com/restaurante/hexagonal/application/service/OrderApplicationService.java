@@ -17,7 +17,7 @@ import jakarta.transaction.Transactional;
 public class OrderApplicationService implements OrderInputPort {
 
     private final OrderRepositoryPort orderRepository;
-    private final TableRepositoryPort tableRepository;  // Para validar que la mesa existe
+    private final TableRepositoryPort tableRepository;  
     private final OrderDomainService orderDomainService;
 
     public OrderApplicationService(
