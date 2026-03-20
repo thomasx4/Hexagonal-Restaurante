@@ -43,8 +43,12 @@ public class ProductApplicationService implements ProductInputPort {
     }
 
     @Override
-    public Product updateProduct(Product product) {
-        Product existing = getProductById(product.getId());
+    public Product updateProduct(Long id, Product product) {
+
+        Product existing = productRepositoryPort.findById(id)
+                .orElseThrow(() -> new RuntimeException(
+                        "Product not found with id: " + id
+                ));
 
         Product updated = existing.update(
                 product.getName(),
