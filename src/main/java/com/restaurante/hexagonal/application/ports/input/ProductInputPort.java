@@ -8,5 +8,5 @@ public interface ProductInputPort {
     List<Product> getProducts();
     Product getProductById(Long id);
     Product deleteProductById(Long id);
-    Product updateProduct(Product product);
+    Product updateProduct(Long id, Product product);
 }
