@@ -44,7 +44,7 @@ public class Category {
             
         }
 
-        if (description.length()>500) {
+        if (description != null && description.length()>500) {
             throw new IllegalArgumentException("La descripcion no puede exceder de 500 caracteres");
         }
     }
