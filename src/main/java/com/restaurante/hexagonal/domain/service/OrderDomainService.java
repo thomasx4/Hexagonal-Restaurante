@@ -2,8 +2,10 @@ package com.restaurante.hexagonal.domain.service;
 
 import java.util.List;
 
-import com.restaurante.hexagonal.domain.model.Order;
+import org.springframework.stereotype.Component;
 
+import com.restaurante.hexagonal.domain.model.Order;
+@Component
 public class OrderDomainService {
     
     public static final String STATUS_PENDING = "PENDING";
