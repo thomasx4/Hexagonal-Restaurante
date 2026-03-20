@@ -12,8 +12,8 @@ import com.restaurante.hexagonal.domain.service.CategoryDomainService;
 @Service
 public class CategoryApplicationService implements CategoryInputPort {
 
-    private final CategoryRepositoryPort port;        // Tu nombre
-    private final CategoryDomainService service;      // Tu nombre
+    private final CategoryRepositoryPort port;        
+    private final CategoryDomainService service;      
 
     public CategoryApplicationService(CategoryRepositoryPort port, CategoryDomainService service) {
         this.port = port;
@@ -52,7 +52,7 @@ public class CategoryApplicationService implements CategoryInputPort {
 
     @Override
     public void deleteCategory(Long id) {
-        getCategoryById(id); // Solo para verificar que existe
+        getCategoryById(id); 
         port.deleteById(id);
     }
 
