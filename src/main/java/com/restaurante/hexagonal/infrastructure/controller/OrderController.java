@@ -99,7 +99,6 @@ public class OrderController {
         
         Order currentOrder = orderInputPort.getOrderById(id);
         
-        Order updatedOrder = currentOrder.updateTotal(request.getTotal());
         
         Order savedOrder = orderInputPort.updateOrder(
                 id,
