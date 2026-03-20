@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurante.hexagonal.application.ports.input.OrderInputPort;
 import com.restaurante.hexagonal.domain.model.Order;
+import com.restaurante.hexagonal.infrastructure.controller.dto.OrderPatchDTO;
 import com.restaurante.hexagonal.infrastructure.controller.dto.OrderRequestDTO;
 import com.restaurante.hexagonal.infrastructure.controller.dto.OrderResponseDTO;
 import com.restaurante.hexagonal.infrastructure.controller.dto.OrderStatusRequestDTO;
+import com.restaurante.hexagonal.infrastructure.controller.dto.OrderTotalPatchDTO;
 
 import jakarta.validation.Valid;
 
@@ -66,6 +68,48 @@ public class OrderController {
                 request.getTotal()
         );
         return ResponseEntity.ok(toResponseDTO(order));
+    }
+
+        @PatchMapping("/{id}")
+    public ResponseEntity<OrderResponseDTO> patchOrder(
+            @PathVariable Long id,
+            @Valid @RequestBody OrderPatchDTO request) {
+        
+        Order currentOrder = orderInputPort.getOrderById(id);
+        
+        Long tableId = request.getTableId() != null ? request.getTableId() : currentOrder.getTableId();
+        String customerName = request.getCustomerName() != null ? request.getCustomerName() : currentOrder.getCustomerName();
+        String status = request.getStatus() != null ? request.getStatus() : currentOrder.getStatus();
+        
+        Order updatedOrder = orderInputPort.updateOrder(
+                id,
+                tableId,
+                customerName,
+                status,
+                currentOrder.getTotal()  
+        );
+        
+        return ResponseEntity.ok(toResponseDTO(updatedOrder));
+    }
+
+    @PatchMapping("/{id}/total")
+    public ResponseEntity<OrderResponseDTO> patchOrderTotal(
+            @PathVariable Long id,
+            @RequestBody OrderTotalPatchDTO request) {
+        
+        Order currentOrder = orderInputPort.getOrderById(id);
+        
+        Order updatedOrder = currentOrder.updateTotal(request.getTotal());
+        
+        Order savedOrder = orderInputPort.updateOrder(
+                id,
+                currentOrder.getTableId(),
+                currentOrder.getCustomerName(),
+                currentOrder.getStatus(),
+                request.getTotal()
+        );
+        
+        return ResponseEntity.ok(toResponseDTO(savedOrder));
     }
 
     @PatchMapping("/{id}/status")

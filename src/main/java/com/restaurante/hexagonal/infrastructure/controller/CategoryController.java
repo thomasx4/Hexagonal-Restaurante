@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurante.hexagonal.application.ports.input.CategoryInputPort;
 import com.restaurante.hexagonal.domain.model.Category;
+import com.restaurante.hexagonal.infrastructure.controller.dto.CategoryPatchDTO;
 import com.restaurante.hexagonal.infrastructure.controller.dto.CategoryRequestDTO;
 import com.restaurante.hexagonal.infrastructure.controller.dto.CategoryResponseDTO;
 
@@ -58,6 +60,21 @@ public class CategoryController {
             @Valid @RequestBody CategoryRequestDTO request) {
         Category category = categoryInputPort.updateCategory(id, request.getName(), request.getDescription());
         return ResponseEntity.ok(toResponseDTO(category));
+    }
+
+      @PatchMapping("/{id}")
+    public ResponseEntity<CategoryResponseDTO> patchCategory(
+            @PathVariable Long id,
+            @Valid @RequestBody CategoryPatchDTO request) {
+        
+        Category currentCategory = categoryInputPort.getCategoryById(id);
+        
+        String newName = request.getName() != null ? request.getName() : currentCategory.getName();
+        String newDescription = request.getDescription() != null ? request.getDescription() : currentCategory.getDescription();
+        
+        Category updatedCategory = categoryInputPort.updateCategory(id, newName, newDescription);
+        
+        return ResponseEntity.ok(toResponseDTO(updatedCategory));
     }
 
     @DeleteMapping("/{id}")
