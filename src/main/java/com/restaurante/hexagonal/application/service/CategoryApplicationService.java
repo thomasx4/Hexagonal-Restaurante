@@ -39,7 +39,7 @@ public class CategoryApplicationService implements CategoryInputPort {
     }
 
     @Override
-    public Category updCategory(Long id, String name, String description) {
+    public Category updateCategory(Long id, String name, String description) {
         Category existing = getCategoryById(id);
         
         if (!existing.getName().equalsIgnoreCase(name)) {

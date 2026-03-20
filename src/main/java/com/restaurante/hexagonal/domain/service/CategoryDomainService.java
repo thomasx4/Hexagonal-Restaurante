@@ -2,12 +2,15 @@ package com.restaurante.hexagonal.domain.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.restaurante.hexagonal.domain.model.Category;
 
+@Component
 public class CategoryDomainService {
 
-    public void validateUniqueName(String name, List<Category> existinCategories){
-        boolean exists = existinCategories.stream().anyMatch(c -> c.getName().equalsIgnoreCase(name));
+  public void validateUniqueName(String name, List<Category> existingCategories){
+    boolean exists = existingCategories.stream().anyMatch(c -> c.getName().equalsIgnoreCase(name));
 
         if (exists) {
             throw new IllegalArgumentException("Ya existe una categoria con el nombre: "+name);
