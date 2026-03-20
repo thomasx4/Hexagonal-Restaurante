@@ -1,5 +1,6 @@
 package com.restaurante.hexagonal.infrastructure.persistence.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -39,8 +40,8 @@ public class OrderEntity {
     @Column(name = "status", length = 50)
     private String status;
     
-    @Column(name = "total", precision = 10, scale = 2)
-    private Double total;
+@Column(name = "total", precision = 10, scale = 2)
+private BigDecimal total;
     
     @ManyToOne
     @JoinColumn(name = "table_id", insertable = false, updatable = false)
