@@ -82,7 +82,6 @@ public class Order {
                 .build();
     }
     
-    // equals, hashCode, toString
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,7 +105,6 @@ public class Order {
                 '}';
     }
     
-    // Builder
     public static class Builder {
         private Long id;
         private Long tableId;
@@ -127,7 +125,6 @@ public class Order {
         }
     }
     
-    // Factory methods
     public static Order create(Long tableId, String customerName, String status, Double total) {
         return new Builder()
                 .tableId(tableId)

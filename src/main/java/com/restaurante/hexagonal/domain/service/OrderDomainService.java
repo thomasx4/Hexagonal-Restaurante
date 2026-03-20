@@ -6,7 +6,6 @@ import com.restaurante.hexagonal.domain.model.Order;
 
 public class OrderDomainService {
     
-    // Constantes para estados válidos
     public static final String STATUS_PENDING = "PENDING";
     public static final String STATUS_IN_PROGRESS = "IN_PROGRESS";
     public static final String STATUS_COMPLETED = "COMPLETED";
@@ -15,10 +14,7 @@ public class OrderDomainService {
     private static final List<String> VALID_STATUSES = List.of(
         STATUS_PENDING, STATUS_IN_PROGRESS, STATUS_COMPLETED, STATUS_CANCELLED
     );
-    
-    /**
-     * Validar que el estado sea válido
-     */
+  
     public void validateStatus(String status) {
         if (!VALID_STATUSES.contains(status)) {
             throw new IllegalArgumentException(
@@ -26,10 +22,7 @@ public class OrderDomainService {
             );
         }
     }
-    
-    /**
-     * Validar que la mesa esté disponible para nueva orden
-     */
+
     public void validateTableAvailable(Long tableId, List<Order> activeOrders) {
         boolean hasActiveOrder = activeOrders.stream()
                 .filter(o -> !STATUS_COMPLETED.equals(o.getStatus()))
@@ -43,15 +36,13 @@ public class OrderDomainService {
         }
     }
     
-    /**
-     * Validar transición de estados
-     */
+  
     public void validateStatusTransition(String currentStatus, String newStatus) {
         if (currentStatus.equals(newStatus)) {
-            return; // Mismo estado, siempre válido
+            return; 
         }
         
-        // Reglas de negocio para cambios de estado
+      
         if (STATUS_COMPLETED.equals(currentStatus)) {
             throw new IllegalStateException("No se puede cambiar una orden ya completada");
         }
@@ -61,14 +52,13 @@ public class OrderDomainService {
         }
         
         if (STATUS_PENDING.equals(currentStatus) && STATUS_IN_PROGRESS.equals(newStatus)) {
-            return; // PENDING -> IN_PROGRESS válido
+            return; 
         }
         
         if (STATUS_IN_PROGRESS.equals(currentStatus) && STATUS_COMPLETED.equals(newStatus)) {
-            return; // IN_PROGRESS -> COMPLETED válido
+            return;
         }
         
-        // Cualquier estado puede cancelarse
         if (STATUS_CANCELLED.equals(newStatus)) {
             return;
         }
@@ -78,9 +68,7 @@ public class OrderDomainService {
         );
     }
     
-    /**
-     * Buscar órdenes activas de una mesa
-     */
+    
     public List<Order> findActiveOrdersByTable(Long tableId, List<Order> orders) {
         return orders.stream()
                 .filter(o -> tableId.equals(o.getTableId()))
