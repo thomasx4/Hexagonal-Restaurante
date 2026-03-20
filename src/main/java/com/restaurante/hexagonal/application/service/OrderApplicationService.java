@@ -1,5 +1,6 @@
 package com.restaurante.hexagonal.application.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class OrderApplicationService implements OrderInputPort {
     }
 
     @Override
-    public Order createOrder(Long tableId, String customerName, Double total) {
+    public Order createOrder(Long tableId, String customerName, BigDecimal total) {
         tableRepository.findById(tableId)
                 .orElseThrow(() -> new IllegalArgumentException("Mesa no encontrada con id: " + tableId));
         
@@ -56,7 +57,7 @@ public class OrderApplicationService implements OrderInputPort {
     }
 
     @Override
-    public Order updateOrder(Long id, Long tableId, String customerName, String status, Double total) {
+    public Order updateOrder(Long id, Long tableId, String customerName, String status, BigDecimal total) {
         Order existing = getOrderById(id);
         
         if (!existing.getStatus().equals(status)) {

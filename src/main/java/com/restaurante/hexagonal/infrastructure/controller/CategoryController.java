@@ -22,7 +22,7 @@ import com.restaurante.hexagonal.infrastructure.controller.dto.CategoryResponseD
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryInputPort categoryInputPort;

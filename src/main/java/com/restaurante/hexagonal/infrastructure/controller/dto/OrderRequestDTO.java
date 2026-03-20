@@ -1,5 +1,7 @@
 package com.restaurante.hexagonal.infrastructure.controller.dto;
 
+import java.math.BigDecimal;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -17,5 +19,5 @@ public class OrderRequestDTO {
     private String customerName;
     
     @Positive(message = "El total debe ser positivo")
-    private Double total;
+    private BigDecimal total;
 }
