@@ -23,7 +23,7 @@ import com.restaurante.hexagonal.infrastructure.controller.dto.OrderStatusReques
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/orders")
 public class OrderController {
 
     private final OrderInputPort orderInputPort;

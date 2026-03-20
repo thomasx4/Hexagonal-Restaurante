@@ -40,8 +40,8 @@ public class OrderEntity {
     @Column(name = "status", length = 50)
     private String status;
     
-@Column(name = "total", precision = 10, scale = 2)
-private BigDecimal total;
+    @Column(name = "total", precision = 10, scale = 2)
+    private BigDecimal total;
     
     @ManyToOne
     @JoinColumn(name = "table_id", insertable = false, updatable = false)

@@ -1,5 +1,6 @@
 package com.restaurante.hexagonal.infrastructure.controller.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.Builder;
@@ -13,5 +14,5 @@ public class OrderResponseDTO {
     private String customerName;
     private LocalDateTime orderDate;
     private String status;
-    private Double total;
+    private BigDecimal total;
 }

@@ -1,5 +1,6 @@
 package com.restaurante.hexagonal.domain.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ public class Order {
     private final String customerName;
     private final LocalDateTime orderDate;
     private final String status;
-    private final Double total;
+    private final BigDecimal total;  
     
     private Order(Builder builder) {
         this.id = builder.id;
@@ -22,15 +23,13 @@ public class Order {
         validate();
     }
     
-
     public Long getId() { return id; }
     public Long getTableId() { return tableId; }
     public String getCustomerName() { return customerName; }
     public LocalDateTime getOrderDate() { return orderDate; }
     public String getStatus() { return status; }
-    public Double getTotal() { return total; }
+    public BigDecimal getTotal() { return total; }  
     
-
     private void validate() {
         if (customerName == null || customerName.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del cliente es obligatorio");
@@ -44,12 +43,12 @@ public class Order {
         if (status == null || status.trim().isEmpty()) {
             throw new IllegalArgumentException("El estado es obligatorio");
         }
-        if (total != null && total < 0) {
+        if (total != null && total.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("El total no puede ser negativo");
         }
     }
     
-    public Order update(Long tableId, String customerName, String status, Double total) {
+    public Order update(Long tableId, String customerName, String status, BigDecimal total) {
         return new Builder()
                 .id(this.id)
                 .tableId(tableId)
@@ -71,7 +70,7 @@ public class Order {
                 .build();
     }
     
-    public Order updateTotal(Double newTotal) {
+    public Order updateTotal(BigDecimal newTotal) {
         return new Builder()
                 .id(this.id)
                 .tableId(this.tableId)
@@ -111,32 +110,31 @@ public class Order {
         private String customerName;
         private LocalDateTime orderDate;
         private String status;
-        private Double total;
+        private BigDecimal total; 
         
         public Builder id(Long id) { this.id = id; return this; }
         public Builder tableId(Long tableId) { this.tableId = tableId; return this; }
         public Builder customerName(String customerName) { this.customerName = customerName; return this; }
         public Builder orderDate(LocalDateTime orderDate) { this.orderDate = orderDate; return this; }
         public Builder status(String status) { this.status = status; return this; }
-        public Builder total(Double total) { this.total = total; return this; }
-        
+        public Builder total(BigDecimal total) { this.total = total; return this; }  
         public Order build() {
             return new Order(this);
         }
     }
     
-    public static Order create(Long tableId, String customerName, String status, Double total) {
+    public static Order create(Long tableId, String customerName, String status, BigDecimal total) {
         return new Builder()
                 .tableId(tableId)
                 .customerName(customerName)
                 .orderDate(LocalDateTime.now())
                 .status(status)
-                .total(total != null ? total : 0.0)
+                .total(total != null ? total : BigDecimal.ZERO) 
                 .build();
     }
     
     public static Order reconstruct(Long id, Long tableId, String customerName, 
-                                    LocalDateTime orderDate, String status, Double total) {
+                                    LocalDateTime orderDate, String status, BigDecimal total) {  
         return new Builder()
                 .id(id)
                 .tableId(tableId)
