@@ -3,7 +3,8 @@ import lombok.Data;
 
 @Data
 public class TableRequestDTO {
-    private Long number;
-    private Integer capacity;
-    private boolean status;
+    public Long id;
+    public Integer number;
+    public Integer capacity;
+    public Boolean status;
 }

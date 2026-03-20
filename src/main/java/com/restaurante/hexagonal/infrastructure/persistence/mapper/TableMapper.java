@@ -7,21 +7,18 @@ public class TableMapper {
 
     public static TableEntity toEntity(Table table) {
         if (table == null) return null;
-
         return TableEntity.builder()
                 .id(table.getId())
-                .number(table.getNumber())
+                .number(table.getNumber().longValue())
                 .capacity(table.getCapacity())
                 .status(table.getStatus())
                 .build();
     }
 
-    public static Table toModel(TableEntity entity) {
-        if (entity == null) return null;
-
+    public static Table toDomain(TableEntity entity) {
         return new Table.Builder()
                 .id(entity.getId())
-                .number(entity.getNumber())
+                .number(entity.getNumber().intValue())
                 .capacity(entity.getCapacity())
                 .status(entity.getStatus())
                 .build();
